@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import app from "./init";
+import bcrypt from "bcrypt";
 
 const firestore = getFirestore(app);
 
@@ -33,8 +34,8 @@ export async function signUp(
   userData: {
     email: string;
     fullname: string;
-    password: string;
     phone: string;
+    password: string;
     role?: string;
   },
   callback: Function
@@ -54,9 +55,9 @@ export async function signUp(
     callback(false);
   } else {
     if (!userData.role) {
-      userData.role = "member"
+      userData.role = "member";
     }
-    
+    userData.password = await bcrypt.hash(userData.password, 10);
     await addDoc(collection(firestore, "users"), userData)
       .then(() => {
         callback(true);
