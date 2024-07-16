@@ -4,6 +4,8 @@ import styles from "./Login.module.scss";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
 
 const LoginView = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,38 +47,22 @@ const LoginView = () => {
       {error && <p className={styles.Login__error}>{error}</p>}
       <div className={styles.Login__form}>
         <form onSubmit={handleSubmit}>
-          <div className={styles.Login__form__item}>
-            <label htmlFor="email">Email</label>
-            <input
-              name="email"
-              id="email"
-              type="email"
-              className={styles.Login__form__item__input}
-            />
-          </div>
-          <div className={styles.Login__form__item}>
-            <label htmlFor="password">Password</label>
-            <input
-              name="password"
-              id="password"
-              type="password"
-              className={styles.Login__form__item__input}
-            />
-          </div>
-          <button type="submit" className={styles.Login__form__button}>
+          <Input label="Email" name="email" type="email" />
+          <Input label="Password" name="password" type="password" />
+          <Button type="submit" className={styles.Login__form__button}>
             {isLoading ? "Loading..." : "Login"}
-          </button>
+          </Button>
         </form>
         <hr className={styles.Login__form__devider} />
         <div className={styles.Login__form__other}>
-          <button
+          <Button
             type="button"
-            onClick={() => signIn("google", { callbackUrl, redirect: false })}
             className={styles.Login__form__other__button}
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
           >
             <i className="bx bxl-google" />
             Login With Google
-          </button>
+          </Button>
         </div>
       </div>
       <p className={styles.Login__link}>
