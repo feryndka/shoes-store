@@ -7,5 +7,5 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const {data} = useSession()
   
-  return <>Home Page</>;
+  return <>Home Page Store</>;
 }
